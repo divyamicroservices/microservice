@@ -1,0 +1,42 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: apigateway
+    version: v1
+  name: apigateway
+spec: 
+  strategy: # Default, so usually not specified
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1  # specifies the maximum number of Pods that can be created over the desired number of Pods
+      maxUnavailable: 25% #specifies the maximum number of Pods that can be unavailable during the update process
+  replicas: 1
+  selector: 
+    matchLabels: 
+      app: apigateway
+      version: v1
+  template: 
+    metadata: 
+      labels: 
+        app: apigateway
+        version: v1
+
+    spec: 
+
+      containers: 
+        - 
+          image: "dddjain/study-api-gateway:latest"
+          imagePullPolicy: Always
+          name: apigateway
+          ports: 
+ 
+          - name: httpport
+            containerPort: 9091
+            hostPort: 9091      
+          env:
+            - name: eureka.url
+              value: "http://192.168.56.105:30474/eureka"  
+            - name: zipkin.url
+              value: "http://192.168.56.105:31485/zipkin"  

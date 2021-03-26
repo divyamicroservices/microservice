@@ -1,0 +1,48 @@
+#spring.application.name=currency-conversion-services
+#server.port=8100
+
+#eureka.client.service-url.defaultZone=http://localhost:8761/eureka/
+
+
+#We have connected through Eureka .All the services are connected in eureka registry.
+#currency-exchange-service.ribbon.listOfServers=localhost:8000,localhost:8002
+
+
+
+server:
+  port: 8100
+
+spring:
+  application:
+    name: currency-conversion-services
+  sleuth:
+    trace-id128: true
+    sampler:
+     probability: 1.0
+  zipkin:
+    base-url: http://192.168.56.105:31485/
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'   
+
+     
+#eureka.instance.hostname=192.168.99.100
+eureka:
+  instance:
+    hostname: localhost
+    instance-id: ${spring.application.name}
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 5
+    prefer-ip-address: true
+    metadata-map:
+      zone: A
+  client:
+    service-url:
+      defaultZone:  ${eureka.url:http://localhost:8761/eureka}
+    register-with-eureka: true
+    fetch-registry: true
+    prefer-same-zone-eureka: true
+    
+                                     

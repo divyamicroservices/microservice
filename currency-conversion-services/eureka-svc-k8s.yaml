@@ -1,0 +1,19 @@
+--- 
+apiVersion: v1
+kind: Service
+metadata: 
+  labels: 
+    app: currencyconversion
+    version: v1
+  name: currencyconversion
+spec: 
+  ports: 
+    - 
+      name: http
+      port: 8100
+      targetPort: 8100
+
+  selector: 
+    app: currencyconversion
+    version: v1
+  type: NodePort
