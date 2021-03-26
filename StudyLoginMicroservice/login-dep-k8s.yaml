@@ -1,0 +1,41 @@
+--- 
+apiVersion: apps/v1
+kind: Deployment
+metadata: 
+  labels: 
+    app: loginms
+    version: v1
+  name: loginms
+spec: 
+  strategy: # Default, so usually not specified
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1  # specifies the maximum number of Pods that can be created over the desired number of Pods
+      maxUnavailable: 25% #specifies the maximum number of Pods that can be unavailable during the update process
+  replicas: 2
+  selector: 
+    matchLabels: 
+      app: loginms
+      version: v1
+  template: 
+    metadata: 
+      labels: 
+        app: loginms
+        version: v1
+
+    spec: 
+
+      containers: 
+        - 
+          image: "dddjain/loginms:latest"
+          imagePullPolicy: Always
+          name: loginms  
+          env:
+            - name: eureka.url
+              value: "http://192.168.56.105:30474/eureka"
+            - name: zipkin.url
+              value: "http://192.168.56.105:31485/zipkin/" 
+            - name: database.url
+              value: "jdbc:mysql://192.168.99.105:30500/microservicestudy" 
+              
+                    

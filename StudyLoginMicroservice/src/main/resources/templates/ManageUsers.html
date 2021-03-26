@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manage Users</title>
+</head>
+<body>
+<div align="right">
+<a th:href = "@{/login/logout}" >Logout</a>
+</div>
+<div align="center">
+<a th:href = "@{/login/manageUsers}" >Manage Users</a>
+<a th:href = "@{/login/manageProducts}" >Manage Product</a>
+
+</div>
+<div align="center">
+<h1>New User</h1>
+
+
+
+<form th:action= "@{/login/saveUser}" th:object="${newUser}" method="post">
+<input type="text" th:field="*{usertype}" placeholder="User Type(ADMIN or NORMAL)">
+<input type="text" th:field="*{username}" placeholder="User Name">
+<input type="text" th:field="*{password}" placeholder="Password">
+<button type="submit"> Save User</button>
+</form>
+</div>
+
+
+<div align="center">
+<h1>Manage Users</h1>
+<!-- <a th:href = "@{/login/showNewProductForm}" >Add Product</a> -->
+<table border="1">
+	<thead><tr><th>User Type</th><th>User Name</th><th>Password</th> </tr></thead>
+	<tbody>
+	
+	<tr th:each= "listItem : ${listofUsers}">
+ <td th:text= "${listItem.usertype}" ></td>
+ <td th:text= "${listItem.username}" ></td>
+ <td th:text= "${listItem.password}" ></td> 
+ <!-- <td>
+ <a th:href = "@{/login/deleteProduct/{id}(id=${listItem.id})}" >Delete</a>
+ </td> -->
+ </tr>
+	</tbody>
+	</table>
+
+</div>
+</body>
+</html>

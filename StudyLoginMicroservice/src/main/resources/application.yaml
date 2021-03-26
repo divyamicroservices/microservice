@@ -1,0 +1,50 @@
+server:
+  port: 8093
+spring:
+  mvc:
+    view:
+      suffix: .html
+      prefix: /      
+  application:
+    name: login
+  sleuth:
+    trace-id128: true
+    sampler:
+     probability: 1.0
+  zipkin:
+    base-url: ${zipkin.url:http://192.168.99.100:9411/zipkin}
+    
+  datasource:
+    url: ${database.url:jdbc:mysql://192.168.99.100:3306/microservicestudy}
+    username: root
+    password: password
+  jpa:
+    show-sql: true  
+  rabbitmq:
+    host:  192.168.99.100
+    port: 5672
+    username: guest
+    password: guest
+  
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+
+eureka:
+  instance:
+    instance-id: ${spring.application.name}:${server.port}:${random.int}
+    lease-renewal-interval-in-seconds: 2
+    lease-expiration-duration-in-seconds: 5
+    prefer-ip-address: true
+    metadata-map:
+      zone: A
+  client:
+    service-url:
+      defaultZone:  ${eureka.url:http://192.168.99.100:8761/eureka}
+    register-with-eureka: true
+    fetch-registry: true
+    prefer-same-zone-eureka: true
+    
+                                     

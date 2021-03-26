@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Product Management</title>
+</head>
+<body>
+<div align="center">
+<h1>New Product</h1>
+
+
+
+<form th:action= "@{/login/saveProduct}" th:object="${newProduct}" method="post">
+<input type="text" th:field="*{productcategory}" placeholder="Product Category">
+<input type="text" th:field="*{productName}" placeholder="Product Name">
+<input type="text" th:field="*{mrp}" placeholder="Mrp">
+<button type="submit"> Save Product</button>
+</form>
+</div>
+
+</body>
+</html>

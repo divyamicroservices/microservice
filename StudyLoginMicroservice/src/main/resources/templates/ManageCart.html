@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manage My Cart</title>
+</head>
+<body>
+<div align="right">
+<a th:href = "@{/login/logout}" >Logout</a>
+</div>
+<div align="center">
+
+<a th:href = "@{/login/manageCart}" >Manage My Cart</a>
+<a th:href = "@{/login/myOrders}" >My Orders</a>
+</div>
+<div align="center">
+<h1>Manage My Cart</h1>
+<p style="color:red">
+<h3  th:text="${message}"></h3>
+</p>
+
+<table border="1" >
+<tr>
+<td style="vertical-align:top">
+<div align="center" >
+<h2>Add Product in Cart</h2>
+
+
+<!-- <a th:href = "@{/login/showNewProductForm}" >Add Product</a> -->
+<table border="1">
+	<thead><tr><th>Product Category</th><th>Product Name</th><th>MRP</th><th>Action</th> </tr></thead>
+	<tbody>
+	
+	<tr th:each= "listItem : ${listofProducts}">
+ <td th:text= "${listItem.productcategory}" ></td>
+ <td th:text= "${listItem.productName}" ></td>
+ <td th:text= "${listItem.mrp}" ></td> 
+ <td>
+ <a th:href = "@{/login/addProductInCart/{id}(id=${listItem.id})}" >Add Product in Cart</a>
+ </td> 
+ </tr>
+	</tbody>
+	</table>
+
+</div>
+</td>
+<td style="vertical-align:top">
+<div align="center">
+<h2>My Cart</h2>
+
+<table border="1">
+	<thead><tr><th>Product Category</th><th>Product Name</th><th>Mrp (in Rs)</th><th>Action</th> </tr></thead>
+	<tbody>
+	
+ <tr th:each= "cartlistItem,iterator : ${listofCartProducts}">
+ <td th:text= "${cartlistItem.productcategory}" ></td> 
+ <td th:text= "${cartlistItem.productName}" ></td>
+ <td th:text= "${cartlistItem.mrp}" ></td>
+ 
+ <td>
+ <a th:href = "@{/login/deleteProductInCart/{cartid}(cartid=${cartlistItem.cartId})}" >Delete</a>
+ </td> 
+ </tr>
+ <tr><td colspan="2"><b>Total</b></td>
+ 	 <td><b th:text="${#aggregates.sum(listofCartProducts.![mrp])}" ></b></td>
+ </tr>
+	</tbody>
+	</table>
+
+<a th:href = "@{/login/placeOrder}" >Checkout Cart</a>	
+
+</div>	
+	
+
+</td>
+</tr>
+</table>
+</div>
+
+
+</body>
+</html>

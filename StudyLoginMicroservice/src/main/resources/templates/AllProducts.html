@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>All Products</title>
+</head>
+<body>
+<div align="right">
+<a th:href = "@{/login/logout}" >Logout</a>
+</div>
+<div align="center">
+<a th:href = "@{/login/manageUsers}" >Manage Users</a>
+<a th:href = "@{/login/manageProducts}" >Manage Product</a>
+
+</div>
+<div align="center">
+<h1>New Product</h1>
+
+
+
+<form th:action= "@{/login/saveProduct}" th:object="${newProduct}" method="post">
+<input type="text" th:field="*{productcategory}" placeholder="Product Category">
+<input type="text" th:field="*{productName}" placeholder="Product Name">
+<input type="text" th:field="*{mrp}" placeholder="Mrp">
+<button type="submit"> Save Product</button>
+</form>
+</div>
+
+
+<div align="center">
+<h1>Manage Products</h1>
+<!-- <a th:href = "@{/login/showNewProductForm}" >Add Product</a> -->
+<table border="1">
+	<thead><tr><th>Product Category</th><th>Product Name</th><th>MRP</th> </tr></thead>
+	<tbody>
+	
+	<tr th:each= "listItem : ${listofProducts}">
+ <td th:text= "${listItem.productcategory}" ></td>
+ <td th:text= "${listItem.productName}" ></td>
+ <td th:text= "${listItem.mrp}" ></td> 
+ <!-- <td>
+ <a th:href = "@{/login/deleteProduct/{id}(id=${listItem.id})}" >Delete</a>
+ </td> -->
+ </tr>
+	</tbody>
+	</table>
+
+</div>
+</body>
+</html>

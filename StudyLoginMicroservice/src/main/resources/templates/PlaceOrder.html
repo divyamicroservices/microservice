@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Place Order</title>
+</head>
+<body>
+<div align="right">
+<a th:href = "@{/login/logout}" >Logout</a>
+</div>
+<div align="center">
+
+<a th:href = "@{/login/manageCart}" >Manage My Cart</a>
+<a th:href = "@{/login/myOrders}" >My Orders</a>
+</div>
+<div align="center">
+<h1>Place Order</h1>
+<table border="1" >
+<tr>
+
+<td style="vertical-align:top">
+<div align="center">
+<h2>Order Details</h2>
+
+<table border="1">
+	<thead><tr><th>Product Category</th><th>Product Name</th><th>Mrp (in Rs)</th></tr></thead>
+	<tbody>
+	
+ <tr th:each= "cartlistItem,iterator : ${listofCartProducts}">
+ <td th:text= "${cartlistItem.productcategory}" ></td> 
+ <td th:text= "${cartlistItem.productName}" ></td>
+ <td th:text= "${cartlistItem.mrp}" ></td>
+ 
+ 
+ </tr>
+ <tr><td colspan="2"><b>Total</b></td>
+ 	 <td><b th:text="${#aggregates.sum(listofCartProducts.![mrp])}" ></b></td>
+ </tr>
+	</tbody>
+	</table>
+
+<a th:href = "@{/login/checkoutCart}" >Place Order</a>	
+
+</div>	
+	
+
+</td>
+</tr>
+</table>
+</div>
+
+
+</body>
+</html>

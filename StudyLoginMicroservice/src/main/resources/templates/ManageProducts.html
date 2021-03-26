@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="ISO-8859-1">
+<title>Manage Products</title>
+</head>
+<body>
+<div align="center">
+<a th:href = "@{/showNewProductForm}" >Add Product</a>
+
+
+<h1>All Products</h1>
+
+
+<table >
+	<thead><tr><th>Product Category</th><th>Product Name</th><th>MRP</th><th>Delete Product</th> </tr></thead>
+	<tbody>
+	
+	<tr th:each= "listItem :${listofProducts}">
+ <td th:text= "${listItem.productcategory}" ></td>
+ <td th:text= "${listItem.productname}" ></td>
+ <td th:text= "${listItem.productmrp}" ></td>
+ <td><a th:href="@{/deleteProduct/{id}(id=${listItem.id})}">Delete</a></td>
+ </tr>
+	</tbody>
+	</table>
+
+</div>
+</body>
+</html>
